@@ -1,11 +1,11 @@
-from flask import Flask, jsonify, make_response
+from flask import Flask, jsonify, make_response, render_template
 
 app = Flask(__name__)
 
 
 @app.route("/")
-def hello_from_root():
-    return jsonify(message='Hello from root!')
+def root():
+    return render_template('index.html')
 
 
 @app.route("/hello")
