@@ -2,7 +2,7 @@ import boto3
 import uuid
 import os
 
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
