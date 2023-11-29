@@ -30,32 +30,10 @@ resources:
       Type: AWS::S3::Bucket
       Properties:
         BucketName: ${self:provider.environment.BUCKET}
-    # StaticSiteS3BucketPolicy:
-    #   Type: AWS::S3::BucketPolicy
-    #   Properties:
-    #     Bucket:
-    #       Ref: Bucket
-    #     PolicyDocument:
-    #       Version: "2012-10-17"
-    #       Statement:
-    #         - Sid: PublicReadGetObject
-    #           Effect: Allow
-    #           Principal: "*"
-    #           Action:
-    #             - "s3:ListBucket"
-    #             - "s3:GetObject"
-    #             - "s3:PutObject"
-    #             - "s3:DeleteObject"
-    #           Resource:
-    #             Fn::Join: [
-    #               "", [
-    #                 "arn:aws:s3:::",
-    #                 {
-    #                   "Ref": "Bucket"
-    #                 },
-    #                 "/*"
-    #               ]
-    #             ]
+        LifecycleConfiguration:
+          Rules:
+            - Status: Enabled
+              ExpirationInDays: 1
 
 functions:
   api:
