@@ -35,7 +35,7 @@ resources:
             - Status: Enabled
               ExpirationInDays: 1
         PublicAccessBlockConfiguration:
-          BlockPublicAcls: true
+          BlockPublicAcls: false
           IgnorePublicAcls: true
           BlockPublicPolicy: false
           RestrictPublicBuckets: true

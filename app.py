@@ -25,6 +25,6 @@ def root():
         s3 = boto3.resource('s3')
         s3.Bucket(bucket_name).upload_fileobj(uploaded_file, new_filename)
 
-        filepath = "https://" + bucket_name + ".s3."+ region +".amazonaws.com/" + new_filename
+        filepath = "https://" + bucket_name + ".s3." + region + ".amazonaws.com/" + new_filename
         return render_template('index.html', filepath=filepath)
     return render_template('index.html')
