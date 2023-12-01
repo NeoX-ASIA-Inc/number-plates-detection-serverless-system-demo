@@ -38,7 +38,21 @@ resources:
           BlockPublicAcls: false
           IgnorePublicAcls: true
           BlockPublicPolicy: false
-          RestrictPublicBuckets: true
+          RestrictPublicBuckets: false
+
+    DetectInputBucketPolicy:
+      Type: AWS::S3::BucketPolicy
+      Properties:
+        Bucket:
+          Ref: Bucket
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action: s3:GetObject
+              Resource:
+                Fn::Sub: ${Bucket.Arn}/*
+              Principal: "*"
 
 functions:
   api:
