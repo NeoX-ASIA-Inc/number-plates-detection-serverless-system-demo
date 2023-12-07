@@ -1,6 +1,7 @@
 import boto3
 import uuid
 import os
+import logging
 
 from botocore.exceptions import ClientError
 from flask import Flask, request, redirect, url_for, render_template
@@ -33,6 +34,7 @@ def root():
                                                                 'Key': new_filename},
                                                         ExpiresIn=3600)
         except ClientError as e:
+            logging.error(e)
             return None
 
         return render_template('index.html', filepath=response)
