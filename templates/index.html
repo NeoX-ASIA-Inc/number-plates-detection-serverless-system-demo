@@ -14,6 +14,10 @@
         <button>Upload</button>
     </form>
     
-    <div>{{ file }}</div>
+    <br/>
+    
+    {% if filepath %}
+      <div><img src="{{ filepath }}" height="300"/></div>
+    {% endif %}
   </body>
 </html>
