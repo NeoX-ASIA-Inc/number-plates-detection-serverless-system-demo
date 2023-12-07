@@ -23,7 +23,6 @@ def root():
         new_filename = uuid.uuid4().hex + '.' + uploaded_file.filename.rsplit('.', 1)[1].lower()
 
         bucket_name = os.environ['BUCKET']
-        region = os.environ['REGION']
         s3 = boto3.resource('s3')
 
         s3.Bucket(bucket_name).upload_fileobj(uploaded_file, new_filename)
