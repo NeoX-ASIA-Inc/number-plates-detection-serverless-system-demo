@@ -13,8 +13,11 @@
         <input type="file" name="file-to-upload" />
         <button>Upload</button>
     </form>
+    
+    <br/>
+    
     {% if filepath %}
-      <div><a href="{{ filepath }}">Picture</a></div>
+      <div><img src="{{ filepath }}" height="300"/></div>
     {% endif %}
   </body>
 </html>

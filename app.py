@@ -2,6 +2,7 @@ import boto3
 import uuid
 import os
 
+from botocore.exceptions import ClientError
 from flask import Flask, request, redirect, url_for, render_template
 
 app = Flask(__name__)
@@ -23,8 +24,16 @@ def root():
         bucket_name = os.environ['BUCKET']
         region = os.environ['REGION']
         s3 = boto3.resource('s3')
-        s3.Bucket(bucket_name).upload_fileobj(uploaded_file, new_filename)
 
-        filepath = "https://" + bucket_name + ".s3." + region + ".amazonaws.com/" + new_filename
-        return render_template('index.html', filepath=filepath)
+        s3.Bucket(bucket_name).upload_fileobj(uploaded_file, new_filename)
+        s3_client = boto3.client('s3')
+        try:
+            response = s3_client.generate_presigned_url('get_object',
+                                                        Params={'Bucket': bucket_name,
+                                                                'Key': new_filename},
+                                                        ExpiresIn=3600)
+        except ClientError as e:
+            return None
+
+        return render_template('index.html', filepath=response)
     return render_template('index.html')
