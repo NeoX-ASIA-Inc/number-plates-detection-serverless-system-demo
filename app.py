@@ -4,7 +4,7 @@ import os
 import logging
 
 from botocore.exceptions import ClientError
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
