@@ -64,8 +64,8 @@ layers:
 functions:
   api:
     handler: wsgi_handler.handler
-    layers:
-      - "${cf:number-plates-detection-demo-prod.PythonDashappDashdependenciesLambdaLayerQualifiedArn}"
+    # layers:
+    #   - "${cf:number-plates-detection-demo-prod.PythonDashappDashdependenciesLambdaLayerQualifiedArn}"
     events:
       - httpApi: '*'
 
@@ -75,5 +75,6 @@ plugins:
 
 package:
   exclude:
+    - README.md
     - node_modules/**
     - venv/**
