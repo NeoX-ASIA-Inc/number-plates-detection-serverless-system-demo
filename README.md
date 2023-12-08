@@ -53,8 +53,6 @@ and
 
 ```
 pip install -r requirements.txt
-cd layers/tools
-pip install -t python/lib/python3.9/site-packages -r requirements.txt
 ```
 
 and then perform deployment with:
