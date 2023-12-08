@@ -54,12 +54,12 @@ resources:
                 Fn::Sub: ${Bucket.Arn}/*
               Principal: "*"
 
-# layers:
-#   python-app-dependencies:
-#     path: layers/tools
-#     compatibleRuntimes:
-#       - python3.9
-#     description: "Dependencies open-cv for python functions"
+layers:
+  python-app-dependencies:
+    path: layers/tools
+    compatibleRuntimes:
+      - python3.9
+    description: "Dependencies open-cv for python functions"
 
 functions:
   api:
