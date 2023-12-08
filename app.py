@@ -28,7 +28,7 @@ def root():
         s3.Bucket(bucket_name).upload_fileobj(uploaded_file, new_filename)
         s3_client = boto3.client('s3')
         try:
-            response = s3_client.generate_presigned_url('get_object',
+            response_filepath = s3_client.generate_presigned_url('get_object',
                                                         Params={'Bucket': bucket_name,
                                                                 'Key': new_filename},
                                                         ExpiresIn=3600)
@@ -36,5 +36,5 @@ def root():
             logging.error(e)
             return None
 
-        return render_template('index.html', filepath=response)
+        return render_template('index.html', filepath=response_filepath)
     return render_template('index.html')

@@ -20,6 +20,10 @@ provider:
         - "s3:DeleteObject"
       Resource:
         - "*"
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "rekognition:*"
   environment:
     BUCKET: ${self:service}-${self:provider.stage}
     REGION: ${self:provider.region}
