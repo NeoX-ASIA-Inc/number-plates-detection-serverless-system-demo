@@ -20,10 +20,8 @@
       <div><img src="{{ filepath }}" height="300"/></div>
     {% endif %}
     <br/>
-    {% if detectedTexts %}
-      {% for text in detectedTexts %}
-        <div>{{ text['DetectedText'] }} - {{ text['Confidence'] }}</div>
-      {% endfor %}
+    {% if classification_number and plate_number %}
+      <div>分類番号:  {{ classification_number }}  ナンバー:  {{ plate_number }}</div>
     {% endif %}
   </body>
 </html>
