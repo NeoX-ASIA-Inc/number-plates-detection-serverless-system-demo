@@ -36,5 +36,16 @@ def root():
             logging.error(e)
             return None
 
-        return render_template('index.html', filepath=response_filepath)
+        rekognition = boto3.client('rekognition')
+        response = rekognition.detect_text(
+            Image = {
+                'S3Object': {
+                    'Bucket': bucket_name,
+                    'Name': new_filename
+                }
+            }
+        )
+        textDetections = response['TextDetections']
+
+        return render_template('index.html', filepath=response_filepath, detectedTexts = textDetections)
     return render_template('index.html')
