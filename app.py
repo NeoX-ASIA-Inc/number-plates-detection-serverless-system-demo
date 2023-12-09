@@ -4,7 +4,7 @@ import os
 import logging
 
 from botocore.exceptions import ClientError
-from flask import Flask, request, redirect, url_for, render_template
+from flask import Flask, request, render_template
 
 app = Flask(__name__)
 
@@ -23,13 +23,12 @@ def root():
         new_filename = uuid.uuid4().hex + '.' + uploaded_file.filename.rsplit('.', 1)[1].lower()
 
         bucket_name = os.environ['BUCKET']
-        region = os.environ['REGION']
         s3 = boto3.resource('s3')
 
         s3.Bucket(bucket_name).upload_fileobj(uploaded_file, new_filename)
         s3_client = boto3.client('s3')
         try:
-            response = s3_client.generate_presigned_url('get_object',
+            response_filepath = s3_client.generate_presigned_url('get_object',
                                                         Params={'Bucket': bucket_name,
                                                                 'Key': new_filename},
                                                         ExpiresIn=3600)
@@ -37,5 +36,16 @@ def root():
             logging.error(e)
             return None
 
-        return render_template('index.html', filepath=response)
+        rekognition = boto3.client('rekognition')
+        response = rekognition.detect_text(
+            Image = {
+                'S3Object': {
+                    'Bucket': bucket_name,
+                    'Name': new_filename
+                }
+            }
+        )
+        textDetections = response['TextDetections']
+
+        return render_template('index.html', filepath=response_filepath, detectedTexts = textDetections)
     return render_template('index.html')

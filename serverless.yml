@@ -20,6 +20,10 @@ provider:
         - "s3:DeleteObject"
       Resource:
         - "*"
+    - Effect: "Allow"
+      Resource: "*"
+      Action:
+        - "rekognition:*"
   environment:
     BUCKET: ${self:service}-${self:provider.stage}
     REGION: ${self:provider.region}
@@ -35,10 +39,10 @@ resources:
             - Status: Enabled
               ExpirationInDays: 1
         PublicAccessBlockConfiguration:
-          BlockPublicAcls: false
+          BlockPublicAcls: true
           IgnorePublicAcls: true
           BlockPublicPolicy: false
-          RestrictPublicBuckets: false
+          RestrictPublicBuckets: true
 
     DetectInputBucketPolicy:
       Type: AWS::S3::BucketPolicy
@@ -66,5 +70,6 @@ plugins:
 
 package:
   exclude:
+    - README.md
     - node_modules/**
     - venv/**

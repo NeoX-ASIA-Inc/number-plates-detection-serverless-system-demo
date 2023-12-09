@@ -19,5 +19,11 @@
     {% if filepath %}
       <div><img src="{{ filepath }}" height="300"/></div>
     {% endif %}
+    <br/>
+    {% if detectedTexts %}
+      {% for text in detectedTexts %}
+        <div>{{ text['DetectedText'] }} - {{ text['Confidence'] }}</div>
+      {% endfor %}
+    {% endif %}
   </body>
 </html>
